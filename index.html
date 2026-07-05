@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#F7F1EC" />
+  <title>ЧИТ-КОД для SMM — твій робочий набір для старту та росту</title>
+  <meta name="description" content="ЧИТ-КОД для SMM — не курс, а моя особиста робоча база: відеоуроки, шаблони, чек-листи та швидкі рішення. Менше хаосу — більше результату." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ЧИТ-КОД для SMM" />
+  <meta property="og:description" content="Не ще один курс. Моя особиста робоча база, зібрана за 4+ роки в SMM." />
+  <meta property="og:type" content="website" />
+
+  <!-- ============================================================= -->
+  <!-- FACEBOOK (META) PIXEL                                          -->
+  <!-- 👉 Встав свій Pixel ID у двох місцях: у змінній нижче          -->
+  <!--    та в <noscript> (у кінці цього блоку).                      -->
+  <!-- ============================================================= -->
+  <script>
+    // === ЗАМІНИ на свій Pixel ID (напр. '1234567890') ===
+    window.FB_PIXEL_ID = 'REPLACE_WITH_YOUR_PIXEL_ID';
+  </script>
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    // Ініціалізуємо лише коли ID реально вказано (щоб не було помилок під час розробки)
+    if (window.FB_PIXEL_ID && !/REPLACE_WITH/.test(window.FB_PIXEL_ID)) {
+      fbq('init', window.FB_PIXEL_ID);
+      fbq('track', 'PageView');
+    }
+  </script>
+  <noscript>
+    <!-- 👉 ЗАМІНИ REPLACE_WITH_YOUR_PIXEL_ID і тут -->
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=REPLACE_WITH_YOUR_PIXEL_ID&ev=PageView&noscript=1" alt="" />
+  </noscript>
+  <!-- End Meta Pixel Code -->
+
+  <!-- Fonts: Montserrat (headings), Manrope (body), Caveat (handwritten accents) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            // Soft, feminine SMM palette + beige-gold accent
+            cream:    '#F7F1EC',  // base background
+            sand:     '#EFE6DE',  // alt section background
+            blush:    '#FBEEF1',  // soft pink card background
+            rose:     '#D9869F',  // primary pink (buttons)
+            rosedeep: '#C26B86',  // darker rose (gradient end / accents)
+            mauve:    '#B97A8C',
+            // NEW — beige-gold accent (per ТЗ)
+            gold:     '#C6A15B',  // primary gold accent
+            golddeep: '#A9853F',  // darker gold (text on light)
+            goldsoft: '#E7D3A8',  // soft gold
+            goldbg:   '#F4EAD6',  // gold-tinted background
+            ink:      '#34302E',  // primary dark text
+            graphite: '#5A524D',
+            muted:    '#938A83',  // muted text
+            folder:   '#E7A6BC',  // pink folder icons
+            silver:   '#C7CBD0',  // star decoration
+            line:     '#E7DCD3',  // hairline borders
+          },
+          fontFamily: {
+            head: ['Montserrat', 'sans-serif'],
+            body: ['Manrope', 'sans-serif'],
+            hand: ['Caveat', 'cursive'],
+          },
+          boxShadow: {
+            soft:  '0 10px 30px -12px rgba(120, 90, 95, 0.18)',
+            card:  '0 8px 24px -14px rgba(120, 90, 95, 0.22)',
+            cta:   '0 12px 26px -8px rgba(194, 107, 134, 0.55)',
+            gold:  '0 10px 26px -10px rgba(169, 133, 63, 0.4)',
+            note:  '0 6px 18px -10px rgba(80, 60, 60, 0.25)',
+          },
+          borderRadius: { xl2: '1.4rem' },
+          keyframes: {
+            floaty: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-8px)' } },
+          },
+          animation: { floaty: 'floaty 5s ease-in-out infinite' },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { -webkit-font-smoothing: antialiased; }
+    .note-paper { background-image: linear-gradient(180deg, #FFFDFB 0%, #FBF6F0 100%); position: relative; }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    /* Pink underline accent (SMM) */
+    .ink-underline { position: relative; }
+    .ink-underline::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -.12em; height: .32em;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8 C 50 2, 150 2, 198 7' stroke='%23D9869F' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center/100% 100%;
+    }
+    /* Gold underline accent */
+    .gold-underline { position: relative; }
+    .gold-underline::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -.12em; height: .32em;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8 C 50 2, 150 2, 198 7' stroke='%23C6A15B' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center/100% 100%;
+    }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { transition: none; opacity: 1; transform: none; }
+      .animate-floaty { animation: none; }
+    }
+    .pb-safe { padding-bottom: calc(0.625rem + env(safe-area-inset-bottom)); }
+  </style>
+</head>
+
+<body class="font-body bg-cream text-ink antialiased">
+
+  <!-- ============================================================= -->
+  <!-- DECORATIVE SVG SYMBOLS                                        -->
+  <!-- ============================================================= -->
+  <svg width="0" height="0" class="hidden" aria-hidden="true">
+    <symbol id="ic-lock" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M6 10V8a6 6 0 0 1 12 0v2M5 10h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1Zm7 4v2"/></symbol>
+    <symbol id="ic-star" viewBox="0 0 24 24"><path d="M12 2.5c.3 3.6 1.4 5.9 3.4 7.1 1.5.9 3.3 1.2 5.6 1.4-2.3.2-4.1.5-5.6 1.4-2 1.2-3.1 3.5-3.4 7.1-.3-3.6-1.4-5.9-3.4-7.1-1.5-.9-3.3-1.2-5.6-1.4 2.3-.2 4.1-.5 5.6-1.4 2-1.2 3.1-3.5 3.4-7.1Z"/></symbol>
+    <symbol id="ic-folder" viewBox="0 0 24 24"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l1.6 1.8h9.4A1.5 1.5 0 0 1 21 8.3V18a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18V6.5Z"/></symbol>
+    <symbol id="ic-play" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M5 4.5h14a1.5 1.5 0 0 1 1.5 1.5v9A1.5 1.5 0 0 1 19 16.5H5A1.5 1.5 0 0 1 3.5 15V6A1.5 1.5 0 0 1 5 4.5Z"/><path d="M10 8.2v4.6l4-2.3z"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M8 20h8"/></symbol>
+    <symbol id="ic-doc" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M7 3h7l4 4v14H7zM14 3v4h4"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M9.5 12h6M9.5 15.5h6"/></symbol>
+    <symbol id="ic-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7"/></symbol>
+    <symbol id="ic-checklist" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 6.5l1.5 1.5L8 5.5M4 13l1.5 1.5L8 12M4 19l1.5 1.5L8 18M11 6h9M11 12.5h9M11 19h9"/></symbol>
+    <symbol id="ic-gift" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M4 11h16v9H4zM4 7.5h16V11H4zM12 7.5v12.5M12 7.5C12 5 10.5 4 9 4S6.5 5.2 7.4 6.3C8.2 7.2 12 7.5 12 7.5ZM12 7.5C12 5 13.5 4 15 4s2.5 1 1.6 2.3C15.8 7.2 12 7.5 12 7.5Z"/></symbol>
+    <symbol id="ic-spark" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18"/></symbol>
+    <symbol id="ic-grid" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></symbol>
+    <symbol id="ic-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="1.4"/></symbol>
+    <symbol id="ic-rocket" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M5 14c-1 1.5-1 4-1 4s2.5 0 4-1M14.5 4.5C9 7 7 12 7 12l2 2 2 2s5-2 7.5-7.5c.8-1.7.9-3.6.9-4.6 0-.5-.3-.8-.8-.8-1 0-2.9.1-4.1.9Z"/><circle cx="14.5" cy="9.5" r="1.6" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="ic-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M5.5 19.5a6.5 6.5 0 0 1 13 0"/></symbol>
+    <symbol id="ic-chart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 20V4M4 20h16M8 20v-6M12 20V9M16 20v-9M20 20V6"/></symbol>
+    <symbol id="ic-key" viewBox="0 0 24 24"><circle cx="8" cy="8" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M11.2 11.2 20 20M17 17l2-2M14 14l2-2"/></symbol>
+    <symbol id="ic-bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M13 2 4 14h6l-1 8 9-12h-6z"/></symbol>
+    <symbol id="ic-x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="ic-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="ic-infinity" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M7 8a4 4 0 1 0 0 8c2.5 0 3.5-2 5-4s2.5-4 5-4a4 4 0 1 1 0 8c-2.5 0-3.5-2-5-4"/></symbol>
+  </svg>
+
+  <!-- ============================================================= -->
+  <!-- HEADER                                                        -->
+  <!-- ============================================================= -->
+  <header class="sticky top-0 z-40 bg-cream/85 backdrop-blur-md border-b border-line/70">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 h-14 flex items-center justify-between">
+      <a href="#top" class="font-head font-extrabold tracking-tight text-ink text-sm sm:text-base">
+        ЧИТ-КОД <span class="text-rose">SMM</span>
+      </a>
+      <a href="#pricing"
+        class="hidden sm:inline-flex items-center gap-2 rounded-full bg-rose px-4 py-2 text-white text-sm font-semibold shadow-cta hover:bg-rosedeep transition-colors">
+        <svg class="w-4 h-4"><use href="#ic-lock"/></svg> Відкрити доступ
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============================================================= -->
+    <!-- 1. HERO                                                       -->
+    <!-- ============================================================= -->
+    <section class="relative overflow-hidden">
+      <div class="pointer-events-none absolute inset-0 -z-10"
+           style="background:
+             radial-gradient(60% 50% at 80% 0%, #FBE7EE 0%, rgba(251,231,238,0) 60%),
+             radial-gradient(55% 45% at 0% 25%, #F4EAD6 0%, rgba(244,234,214,0) 55%);"></div>
+
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 pt-8 pb-12 sm:pt-14 sm:pb-20 grid lg:grid-cols-2 gap-10 items-center">
+        <!-- Copy -->
+        <div class="reveal">
+          <span class="inline-block rounded-full bg-goldbg text-golddeep text-[11px] font-bold tracking-[0.18em] uppercase px-3 py-1 mb-5 border border-goldsoft">
+            Міні-продукт · робоча база
+          </span>
+          <h1 class="font-head font-black leading-[0.98] text-4xl sm:text-5xl lg:text-6xl tracking-tight">
+            ЧИТ-КОД<br>ДЛЯ <span class="text-rose ink-underline">SMM</span>
+          </h1>
+          <p class="mt-5 text-lg sm:text-xl font-semibold text-graphite">
+            Це не ще один курс. Це моя особиста робоча база, зібрана за 4+ роки в SMM.
+          </p>
+          <p class="mt-4 text-[15px] leading-relaxed text-muted max-w-md">
+            Усе, що я збирала й вдосконалювала разом з ученицями 7 потоків навчання — щоб ти діяла впевнено, а не навмання.
+          </p>
+
+          <div class="mt-7 flex flex-col sm:flex-row gap-3 sm:items-center">
+            <a href="#pricing" data-cta
+              class="group inline-flex items-center justify-center gap-2 rounded-full bg-rose px-7 py-4 text-white text-base font-bold shadow-cta hover:bg-rosedeep active:scale-[.98] transition-all">
+              <svg class="w-5 h-5"><use href="#ic-lock"/></svg>
+              Відкрити доступ
+              <svg class="w-5 h-5 -mr-1 transition-transform group-hover:translate-x-1"><use href="#ic-arrow"/></svg>
+            </a>
+            <span class="text-sm text-muted flex items-center gap-2">
+              <svg class="w-4 h-4 text-gold"><use href="#ic-check"/></svg>
+              Доступ одразу після оплати
+            </span>
+          </div>
+
+          <!-- right-side value list (per ТЗ п.1) -->
+          <ul class="mt-7 grid grid-cols-1 sm:hidden gap-2">
+            <li class="text-sm font-semibold flex items-center gap-2 text-graphite"><svg class="w-4 h-4 text-gold"><use href="#ic-check"/></svg> Відеоуроки</li>
+            <li class="text-sm font-semibold flex items-center gap-2 text-graphite"><svg class="w-4 h-4 text-gold"><use href="#ic-check"/></svg> Моя робоча база</li>
+            <li class="text-sm font-semibold flex items-center gap-2 text-graphite"><svg class="w-4 h-4 text-gold"><use href="#ic-check"/></svg> Швидкі рішення</li>
+            <li class="text-sm font-semibold flex items-center gap-2 text-graphite"><svg class="w-4 h-4 text-gold"><use href="#ic-check"/></svg> Шаблони та файли</li>
+            <li class="text-sm font-semibold flex items-center gap-2 text-graphite"><svg class="w-4 h-4 text-gold"><use href="#ic-check"/></svg> Бонуси</li>
+          </ul>
+        </div>
+
+        <!-- Visual: laptop mockup + value card -->
+        <div class="reveal relative">
+          <svg class="absolute -top-3 right-6 w-8 h-8 text-gold animate-floaty" aria-hidden="true"><use href="#ic-star"/></svg>
+          <svg class="absolute bottom-6 -left-2 w-6 h-6 text-silver animate-floaty" style="animation-delay:.8s" aria-hidden="true"><use href="#ic-star"/></svg>
+
+          <div class="relative mx-auto max-w-md rounded-xl2 bg-white shadow-soft border border-line p-3 rotate-[-1.2deg]">
+            <div class="rounded-lg bg-gradient-to-br from-ink to-graphite p-2">
+              <div class="rounded-md bg-cream p-3">
+                <div class="grid grid-cols-3 gap-2">
+                  <div class="aspect-square rounded-md bg-blush"></div>
+                  <div class="aspect-square rounded-md bg-goldbg"></div>
+                  <div class="aspect-square rounded-md bg-rose/20"></div>
+                  <div class="aspect-square rounded-md bg-sand"></div>
+                  <div class="aspect-square rounded-md bg-rose/25 flex items-center justify-center"><svg class="w-6 h-6 text-rose"><use href="#ic-play"/></svg></div>
+                  <div class="aspect-square rounded-md bg-goldbg"></div>
+                  <div class="aspect-square rounded-md bg-rose/15"></div>
+                  <div class="aspect-square rounded-md bg-sand"></div>
+                  <div class="aspect-square rounded-md bg-blush"></div>
+                </div>
+              </div>
+            </div>
+            <div class="mx-auto mt-1 h-2 w-2/3 rounded-b-xl bg-line"></div>
+          </div>
+
+          <!-- value list card (desktop) -->
+          <div class="hidden sm:block absolute top-2 -right-2 lg:-right-6 rotate-[3deg] bg-white shadow-card border border-line rounded-xl2 p-4 w-56">
+            <p class="text-[11px] uppercase tracking-wide text-golddeep font-bold mb-2">Усередині набору</p>
+            <ul class="space-y-1.5">
+              <li class="text-sm font-semibold flex items-center gap-2 text-graphite"><svg class="w-4 h-4 text-gold"><use href="#ic-check"/></svg> Відеоуроки</li>
+              <li class="text-sm font-semibold flex items-center gap-2 text-graphite"><svg class="w-4 h-4 text-gold"><use href="#ic-check"/></svg> Моя робоча база</li>
+              <li class="text-sm font-semibold flex items-center gap-2 text-graphite"><svg class="w-4 h-4 text-gold"><use href="#ic-check"/></svg> Швидкі рішення</li>
+              <li class="text-sm font-semibold flex items-center gap-2 text-graphite"><svg class="w-4 h-4 text-gold"><use href="#ic-check"/></svg> Шаблони та файли</li>
+              <li class="text-sm font-semibold flex items-center gap-2 text-graphite"><svg class="w-4 h-4 text-gold"><use href="#ic-check"/></svg> Бонуси</li>
+            </ul>
+          </div>
+
+          <div class="absolute -bottom-4 left-2 rotate-[-4deg] bg-blush note-paper shadow-note rounded-md px-4 py-3 max-w-[11rem]">
+            <p class="font-hand text-xl leading-tight text-rosedeep">менше хаосу — <br>більше результату ♥</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- trust strip -->
+      <div class="border-y border-line bg-sand/60">
+        <ul class="mx-auto max-w-6xl px-4 sm:px-6 py-3 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13px] font-semibold text-graphite">
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 text-gold"><use href="#ic-check"/></svg> без води</li>
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 text-gold"><use href="#ic-check"/></svg> тільки те, що працює</li>
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 text-gold"><use href="#ic-check"/></svg> створено практиком</li>
+          <li class="flex items-center gap-2"><svg class="w-4 h-4 text-gold"><use href="#ic-check"/></svg> для твого реального росту</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 2. PAIN POINTS (ТЗ п.2)                                        -->
+    <!-- ============================================================= -->
+    <section class="py-14 sm:py-20">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="grid lg:grid-cols-2 gap-10 items-center">
+          <div class="reveal">
+            <h2 class="font-head font-extrabold text-2xl sm:text-3xl leading-tight">
+              Що зараз відбувається<br>у більшості <span class="text-rose">SMM-спеціалістів</span>
+            </h2>
+            <ul class="mt-6 space-y-3">
+              <li class="flex items-start gap-3 bg-white rounded-xl border border-line p-4 shadow-card">
+                <span class="mt-0.5 shrink-0 grid place-items-center w-7 h-7 rounded-full bg-rose/10 text-rose"><svg class="w-4 h-4"><use href="#ic-x"/></svg></span>
+                <span class="text-[15px] text-graphite font-medium">купа нотаток і відчуття, що все одно нічого не зрозуміло</span>
+              </li>
+              <li class="flex items-start gap-3 bg-white rounded-xl border border-line p-4 shadow-card">
+                <span class="mt-0.5 shrink-0 grid place-items-center w-7 h-7 rounded-full bg-rose/10 text-rose"><svg class="w-4 h-4"><use href="#ic-x"/></svg></span>
+                <span class="text-[15px] text-graphite font-medium">знання є, а клієнтів немає</span>
+              </li>
+              <li class="flex items-start gap-3 bg-white rounded-xl border border-line p-4 shadow-card">
+                <span class="mt-0.5 shrink-0 grid place-items-center w-7 h-7 rounded-full bg-rose/10 text-rose"><svg class="w-4 h-4"><use href="#ic-x"/></svg></span>
+                <span class="text-[15px] text-graphite font-medium">витрачаєш занадто багато часу навіть на 1–2 клієнтів</span>
+              </li>
+              <li class="flex items-start gap-3 bg-white rounded-xl border border-line p-4 shadow-card">
+                <span class="mt-0.5 shrink-0 grid place-items-center w-7 h-7 rounded-full bg-rose/10 text-rose"><svg class="w-4 h-4"><use href="#ic-x"/></svg></span>
+                <span class="text-[15px] text-graphite font-medium">3 куплені курси, до яких так і не повернулась</span>
+              </li>
+              <li class="flex items-start gap-3 bg-white rounded-xl border border-line p-4 shadow-card">
+                <span class="mt-0.5 shrink-0 grid place-items-center w-7 h-7 rounded-full bg-rose/10 text-rose"><svg class="w-4 h-4"><use href="#ic-x"/></svg></span>
+                <span class="text-[15px] text-graphite font-medium">інформаційний хаос, бо всі знають «як правильно»</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="reveal">
+            <div class="relative bg-blush note-paper rounded-xl2 p-7 sm:p-9 shadow-soft border border-line">
+              <svg class="absolute -top-4 -right-3 w-9 h-9 text-gold" aria-hidden="true"><use href="#ic-star"/></svg>
+              <p class="font-hand text-3xl sm:text-4xl text-rosedeep leading-tight">Проблема не в тобі.</p>
+              <p class="mt-3 text-lg sm:text-xl font-semibold text-ink">
+                Проблема в тому, що знання розкидані по різних місцях і не складаються в одну систему.
+              </p>
+              <p class="mt-4 text-[15px] text-graphite leading-relaxed">
+                ЧИТ-КОД збирає все необхідне в одну зрозумілу систему — щоб ти діяла впевнено, а не навмання.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 3. WHY CREATED (ТЗ п.3 — повністю переписано)                 -->
+    <!-- ============================================================= -->
+    <section class="py-14 sm:py-20 bg-sand/60 border-y border-line">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="text-center max-w-2xl mx-auto reveal">
+          <h2 class="font-head font-extrabold text-2xl sm:text-3xl">
+            Чому я створила цей <span class="text-rose">продукт</span>
+          </h2>
+          <p class="mt-4 text-graphite text-[15px] sm:text-base leading-relaxed">
+            Працюючи вже понад 4 роки у сфері SMM-маркетингу та провівши 7 потоків навчання, я постійно бачу одні й ті самі проблеми.
+          </p>
+        </div>
+
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5 reveal">
+          <div class="text-center bg-white rounded-xl2 border border-line p-6 shadow-card">
+            <div class="mx-auto w-12 h-12 grid place-items-center rounded-full bg-rose/10 text-rose"><svg class="w-6 h-6"><use href="#ic-grid"/></svg></div>
+            <p class="mt-3 text-sm font-medium text-graphite">немає структури й розуміння, що робити з інструментами та знаннями</p>
+          </div>
+          <div class="text-center bg-white rounded-xl2 border border-line p-6 shadow-card">
+            <div class="mx-auto w-12 h-12 grid place-items-center rounded-full bg-rose/10 text-rose"><svg class="w-6 h-6"><use href="#ic-doc"/></svg></div>
+            <p class="mt-3 text-sm font-medium text-graphite">бракує чітких матеріалів і простих пояснень</p>
+          </div>
+          <div class="text-center bg-white rounded-xl2 border border-line p-6 shadow-card">
+            <div class="mx-auto w-12 h-12 grid place-items-center rounded-full bg-rose/10 text-rose"><svg class="w-6 h-6"><use href="#ic-folder"/></svg></div>
+            <p class="mt-3 text-sm font-medium text-graphite">хаос у файлах, нотатках та збережених матеріалах</p>
+          </div>
+          <div class="text-center bg-white rounded-xl2 border border-line p-6 shadow-card">
+            <div class="mx-auto w-12 h-12 grid place-items-center rounded-full bg-rose/10 text-rose"><svg class="w-6 h-6"><use href="#ic-user"/></svg></div>
+            <p class="mt-3 text-sm font-medium text-graphite">люди не знають, як почати працювати з клієнтом</p>
+          </div>
+          <div class="text-center bg-white rounded-xl2 border border-line p-6 shadow-card">
+            <div class="mx-auto w-12 h-12 grid place-items-center rounded-full bg-rose/10 text-rose"><svg class="w-6 h-6"><use href="#ic-spark"/></svg></div>
+            <p class="mt-3 text-sm font-medium text-graphite">інформація розкидана по різних курсах, вкладках, відео та постах</p>
+          </div>
+        </div>
+
+        <p class="mt-8 text-center font-hand text-2xl sm:text-3xl text-golddeep reveal">
+          Саме тому я відкрила свою особисту робочу систему й зібрала все необхідне в одному місці.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 4. WHAT'S INSIDE — реальна програма (ТЗ п.4)                  -->
+    <!-- ============================================================= -->
+    <section id="program" class="py-14 sm:py-20">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="reveal max-w-2xl">
+          <h2 class="font-head font-extrabold text-2xl sm:text-3xl">
+            Що всередині <span class="text-rose">ЧИТ-КОДУ</span>
+          </h2>
+          <p class="mt-3 text-graphite">
+            Усе, що потрібно, щоб працювати впевнено, а не навмання. Кожен блок — окрема «робоча папка» з готовими матеріалами.
+          </p>
+        </div>
+
+        <div class="mt-9 space-y-6">
+          <!-- ФУНДАМЕНТ -->
+          <article class="reveal bg-white rounded-xl2 border border-line shadow-card overflow-hidden">
+            <div class="flex items-center gap-4 p-5 sm:p-6 bg-goldbg/60 border-b border-goldsoft/70">
+              <div class="w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-white text-golddeep shadow-sm"><svg class="w-7 h-7"><use href="#ic-key"/></svg></div>
+              <div>
+                <h3 class="font-head font-extrabold text-lg sm:text-xl">🔓 Фундамент</h3>
+                <p class="text-sm text-graphite">Як перестати губитися в SMM і почати рухатися правильно.</p>
+              </div>
+            </div>
+            <ul class="p-5 sm:p-6 grid sm:grid-cols-2 gap-x-8 gap-y-3">
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-gold"><use href="#ic-check"/></svg> Roadmap «Перші місяці у SMM — як зробити старт успішним»</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-gold"><use href="#ic-check"/></svg> Карта професії</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-gold"><use href="#ic-check"/></svg> Дорожня карта навчання</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-gold"><use href="#ic-check"/></svg> ТОП-20 помилок новачків та діючих СММ</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-gold"><use href="#ic-check"/></svg> Практичні сервіси для роботи</li>
+            </ul>
+          </article>
+
+          <!-- МОЯ РОБОЧА БАЗА -->
+          <article class="reveal bg-white rounded-xl2 border border-line shadow-card overflow-hidden">
+            <div class="flex items-center gap-4 p-5 sm:p-6 bg-blush/70 border-b border-line">
+              <div class="w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-white text-rose shadow-sm"><svg class="w-7 h-7"><use href="#ic-folder"/></svg></div>
+              <div>
+                <h3 class="font-head font-extrabold text-lg sm:text-xl">📂 Моя робоча база</h3>
+                <p class="text-sm text-graphite">Готові файли й шаблони, якими я користуюся щодня.</p>
+              </div>
+            </div>
+            <ul class="p-5 sm:p-6 grid sm:grid-cols-2 gap-x-8 gap-y-3">
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-rose"><use href="#ic-check"/></svg> Робочі файли з клієнтами: бриф, КП, стратегія та ін.</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-rose"><use href="#ic-check"/></svg> Підбірка актуальних тем для блогу</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-rose"><use href="#ic-check"/></svg> Готовий контент-план і шаблон</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-rose"><use href="#ic-check"/></svg> Заголовки для Reels</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-rose"><use href="#ic-check"/></svg> Формати відео</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-rose"><use href="#ic-check"/></svg> Ідеї для Stories + Canva</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-rose"><use href="#ic-check"/></svg> Воронка блогу SMM-спеціаліста</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-rose"><use href="#ic-check"/></svg> Приклад продуктової лінійки</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-rose"><use href="#ic-check"/></svg> Інструкція по упаковці профілю</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-rose"><use href="#ic-check"/></svg> Структура портфоліо</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-rose"><use href="#ic-check"/></svg> Поєднання кольорів і шрифтів + AI для оформлення</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-rose"><use href="#ic-check"/></svg> Робочий простір Notion</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-rose"><use href="#ic-check"/></svg> Клієнти з Threads</li>
+            </ul>
+          </article>
+
+          <!-- ШВИДКІ РІШЕННЯ -->
+          <article class="reveal bg-white rounded-xl2 border border-line shadow-card overflow-hidden">
+            <div class="flex items-center gap-4 p-5 sm:p-6 bg-goldbg/60 border-b border-goldsoft/70">
+              <div class="w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-white text-golddeep shadow-sm"><svg class="w-7 h-7"><use href="#ic-bolt"/></svg></div>
+              <div>
+                <h3 class="font-head font-extrabold text-lg sm:text-xl">⚡ Швидкі рішення</h3>
+                <p class="text-sm text-graphite">Готові відповіді на ситуації, що виникають у роботі.</p>
+              </div>
+            </div>
+            <ul class="p-5 sm:p-6 grid sm:grid-cols-2 gap-x-8 gap-y-3">
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-gold"><use href="#ic-check"/></svg> Що робити, якщо не знаєш, що відповісти клієнту</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-gold"><use href="#ic-check"/></svg> Як визначити вартість своїх послуг</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-gold"><use href="#ic-check"/></svg> Як перестати боятися продажів</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-gold"><use href="#ic-check"/></svg> Як не втратити клієнта через комунікацію</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-gold"><use href="#ic-check"/></svg> ChatGPT-промпти</li>
+              <li class="flex items-start gap-3 text-[15px] text-graphite"><svg class="w-5 h-5 mt-0.5 shrink-0 text-gold"><use href="#ic-check"/></svg> Мої особисті напрацювання</li>
+            </ul>
+          </article>
+        </div>
+
+        <p class="mt-6 font-hand text-2xl text-rosedeep reveal">
+          усе, що потрібно, щоб працювати впевнено, а не навмання ✶
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 5+6. RESULT (renamed, ТЗ п.5) + FOR WHOM (ТЗ п.6)              -->
+    <!-- ============================================================= -->
+    <section class="py-14 sm:py-20 bg-sand/60 border-y border-line">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 grid lg:grid-cols-2 gap-10">
+        <!-- result (renamed) -->
+        <div class="reveal">
+          <h2 class="font-head font-extrabold text-2xl sm:text-3xl leading-tight">
+            Після ЧИТ-КОДУ ти перестанеш <span class="text-rose">працювати навмання</span>
+          </h2>
+          <ul class="mt-6 space-y-3">
+            <li class="flex items-center gap-3 bg-white rounded-xl border border-line p-4 shadow-card">
+              <span class="shrink-0 grid place-items-center w-7 h-7 rounded-full bg-rose text-white"><svg class="w-4 h-4"><use href="#ic-check"/></svg></span>
+              <span class="text-[15px] font-medium text-graphite">зрозуміла система роботи</span>
+            </li>
+            <li class="flex items-center gap-3 bg-white rounded-xl border border-line p-4 shadow-card">
+              <span class="shrink-0 grid place-items-center w-7 h-7 rounded-full bg-rose text-white"><svg class="w-4 h-4"><use href="#ic-check"/></svg></span>
+              <span class="text-[15px] font-medium text-graphite">готові шаблони та матеріали</span>
+            </li>
+            <li class="flex items-center gap-3 bg-white rounded-xl border border-line p-4 shadow-card">
+              <span class="shrink-0 grid place-items-center w-7 h-7 rounded-full bg-rose text-white"><svg class="w-4 h-4"><use href="#ic-check"/></svg></span>
+              <span class="text-[15px] font-medium text-graphite">впевненість у своїх діях</span>
+            </li>
+            <li class="flex items-center gap-3 bg-white rounded-xl border border-line p-4 shadow-card">
+              <span class="shrink-0 grid place-items-center w-7 h-7 rounded-full bg-rose text-white"><svg class="w-4 h-4"><use href="#ic-check"/></svg></span>
+              <span class="text-[15px] font-medium text-graphite">менше хаосу — більше результату</span>
+            </li>
+            <li class="flex items-center gap-3 bg-white rounded-xl border border-line p-4 shadow-card">
+              <span class="shrink-0 grid place-items-center w-7 h-7 rounded-full bg-rose text-white"><svg class="w-4 h-4"><use href="#ic-check"/></svg></span>
+              <span class="text-[15px] font-medium text-graphite">економія місяців самостійного пошуку</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- for whom (5 cards) -->
+        <div class="reveal">
+          <h2 class="font-head font-extrabold text-2xl sm:text-3xl">Кому <span class="text-rose">підійде</span></h2>
+          <p class="mt-3 text-graphite">Цей продукт для тебе, якщо ти:</p>
+          <div class="mt-6 grid sm:grid-cols-2 gap-4">
+            <div class="bg-white rounded-xl2 border border-line p-5 shadow-card">
+              <div class="w-10 h-10 grid place-items-center rounded-full bg-blush text-rose"><svg class="w-5 h-5"><use href="#ic-user"/></svg></div>
+              <p class="mt-3 text-sm font-medium text-graphite">тільки думаєш про SMM і не знаєш, з чого почати</p>
+            </div>
+            <div class="bg-white rounded-xl2 border border-line p-5 shadow-card">
+              <div class="w-10 h-10 grid place-items-center rounded-full bg-blush text-rose"><svg class="w-5 h-5"><use href="#ic-spark"/></svg></div>
+              <p class="mt-3 text-sm font-medium text-graphite">вже працюєш, але постійно сумніваєшся в собі</p>
+            </div>
+            <div class="bg-white rounded-xl2 border border-line p-5 shadow-card">
+              <div class="w-10 h-10 grid place-items-center rounded-full bg-blush text-rose"><svg class="w-5 h-5"><use href="#ic-rocket"/></svg></div>
+              <p class="mt-3 text-sm font-medium text-graphite">хочеш рости швидше та впевненіше</p>
+            </div>
+            <div class="bg-white rounded-xl2 border border-line p-5 shadow-card">
+              <div class="w-10 h-10 grid place-items-center rounded-full bg-blush text-rose"><svg class="w-5 h-5"><use href="#ic-grid"/></svg></div>
+              <p class="mt-3 text-sm font-medium text-graphite">хочеш систематизувати свої знання</p>
+            </div>
+            <!-- NEW 5th card (gold accent) -->
+            <div class="bg-white rounded-xl2 border border-goldsoft p-5 shadow-gold sm:col-span-2">
+              <div class="w-10 h-10 grid place-items-center rounded-full bg-goldbg text-golddeep"><svg class="w-5 h-5"><use href="#ic-chart"/></svg></div>
+              <p class="mt-3 text-sm font-medium text-graphite">хочеш перейти на новий рівень та підвищити чек</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 7. AUTHOR / ABOUT (ТЗ п.7 — оновлені дані)                    -->
+    <!-- ============================================================= -->
+    <section id="author" class="py-14 sm:py-20">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 grid lg:grid-cols-5 gap-10 items-center">
+        <div class="reveal lg:col-span-2">
+          <div class="relative mx-auto max-w-xs">
+            <div class="aspect-[4/5] rounded-xl2 bg-gradient-to-br from-blush via-sand to-goldbg border border-line shadow-soft grid place-items-center overflow-hidden">
+              <svg class="w-28 h-28 text-rose/40"><use href="#ic-user"/></svg>
+            </div>
+            <div class="absolute -bottom-4 -right-3 bg-white rounded-xl shadow-card border border-goldsoft px-4 py-3 rotate-[3deg]">
+              <p class="font-hand text-2xl text-golddeep leading-none">Катя</p>
+              <p class="text-[11px] uppercase tracking-wide text-muted font-bold">SMM-практик</p>
+            </div>
+            <svg class="absolute -top-3 -left-2 w-8 h-8 text-gold animate-floaty" aria-hidden="true"><use href="#ic-star"/></svg>
+          </div>
+        </div>
+
+        <div class="reveal lg:col-span-3">
+          <span class="inline-block rounded-full bg-goldbg text-golddeep text-[11px] font-bold tracking-[0.18em] uppercase px-3 py-1 mb-4 border border-goldsoft">Про мене</span>
+          <h2 class="font-head font-extrabold text-2xl sm:text-3xl">Створено на основі реального досвіду</h2>
+          <p class="mt-4 text-[15px] text-graphite leading-relaxed max-w-xl">
+            SMM-маркетолог та менторка для новачків і SMM-спеціалістів, які хочуть вийти з хаосу та масштабувати свої результати. Я не даю «сухої» теорії — я даю систему, яка працює на практиці.
+          </p>
+
+          <div class="mt-7 grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div class="bg-white rounded-xl border border-line p-4 shadow-card">
+              <p class="font-head font-black text-2xl text-rose">4+</p>
+              <p class="mt-1 text-[12px] font-semibold text-graphite leading-tight">роки досвіду в SMM-маркетингу</p>
+            </div>
+            <div class="bg-white rounded-xl border border-line p-4 shadow-card">
+              <p class="font-head font-black text-2xl text-rose">7</p>
+              <p class="mt-1 text-[12px] font-semibold text-graphite leading-tight">потоків авторського навчання</p>
+            </div>
+            <div class="bg-white rounded-xl border border-line p-4 shadow-card">
+              <p class="font-head font-black text-2xl text-rose">85+</p>
+              <p class="mt-1 text-[12px] font-semibold text-graphite leading-tight">учениць</p>
+            </div>
+            <div class="bg-white rounded-xl border border-line p-4 shadow-card">
+              <p class="font-head font-black text-2xl text-rose">+10</p>
+              <p class="mt-1 text-[12px] font-semibold text-graphite leading-tight">бізнесів із різних ніш</p>
+            </div>
+            <div class="bg-goldbg rounded-xl border border-goldsoft p-4 shadow-gold col-span-2 sm:col-span-2">
+              <p class="font-head font-black text-2xl text-golddeep">800–2000$</p>
+              <p class="mt-1 text-[12px] font-semibold text-graphite leading-tight">дохід учениць уже через 2–4 місяці</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 8. NEW: WHAT YOU GET AFTER PURCHASE (ТЗ п.8)                  -->
+    <!-- ============================================================= -->
+    <section class="py-14 sm:py-20 bg-goldbg/50 border-y border-goldsoft/60">
+      <div class="mx-auto max-w-4xl px-4 sm:px-6">
+        <div class="text-center reveal">
+          <h2 class="font-head font-extrabold text-2xl sm:text-3xl">
+            Що ти отримаєш <span class="text-golddeep gold-underline">після покупки</span>
+          </h2>
+          <p class="mt-3 text-graphite">Не список матеріалів. А саме результат.</p>
+        </div>
+        <div class="mt-9 grid sm:grid-cols-2 gap-4 reveal">
+          <div class="flex items-start gap-3 bg-white rounded-xl2 border border-line p-5 shadow-card">
+            <span class="shrink-0 grid place-items-center w-8 h-8 rounded-full bg-goldbg text-golddeep"><svg class="w-5 h-5"><use href="#ic-check"/></svg></span>
+            <p class="text-[15px] font-medium text-graphite">Перестанеш губитися серед сотень вкладок</p>
+          </div>
+          <div class="flex items-start gap-3 bg-white rounded-xl2 border border-line p-5 shadow-card">
+            <span class="shrink-0 grid place-items-center w-8 h-8 rounded-full bg-goldbg text-golddeep"><svg class="w-5 h-5"><use href="#ic-check"/></svg></span>
+            <p class="text-[15px] font-medium text-graphite">Зрозумієш, що робити далі</p>
+          </div>
+          <div class="flex items-start gap-3 bg-white rounded-xl2 border border-line p-5 shadow-card">
+            <span class="shrink-0 grid place-items-center w-8 h-8 rounded-full bg-goldbg text-golddeep"><svg class="w-5 h-5"><use href="#ic-check"/></svg></span>
+            <p class="text-[15px] font-medium text-graphite">Отримаєш готову систему роботи</p>
+          </div>
+          <div class="flex items-start gap-3 bg-white rounded-xl2 border border-line p-5 shadow-card">
+            <span class="shrink-0 grid place-items-center w-8 h-8 rounded-full bg-goldbg text-golddeep"><svg class="w-5 h-5"><use href="#ic-check"/></svg></span>
+            <p class="text-[15px] font-medium text-graphite">Заощадиш місяці самостійного пошуку інформації</p>
+          </div>
+          <div class="flex items-start gap-3 bg-white rounded-xl2 border border-line p-5 shadow-card sm:col-span-2">
+            <span class="shrink-0 grid place-items-center w-8 h-8 rounded-full bg-goldbg text-golddeep"><svg class="w-5 h-5"><use href="#ic-check"/></svg></span>
+            <p class="text-[15px] font-medium text-graphite">Почнеш працювати швидше та впевненіше</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 9. TESTIMONIALS (ТЗ п.9 — блок лишаємо, реальні картинки додасть замовник) -->
+    <!-- ============================================================= -->
+    <section class="py-14 sm:py-20 bg-sand/60 border-y border-line">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="reveal">
+          <h2 class="font-head font-extrabold text-2xl sm:text-3xl">Що говорять <span class="text-rose">учениці</span></h2>
+          <p class="mt-3 text-graphite">Результати після 2–4 місяців роботи.</p>
+        </div>
+
+        <!-- Плейсхолдери під реальні скріни відгуків. Замініть картинки у папці reviews/ -->
+        <div class="mt-8 flex lg:grid lg:grid-cols-4 gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory -mx-4 px-4 lg:mx-0 lg:px-0 reveal">
+          <figure class="snap-start shrink-0 w-[80%] sm:w-[46%] lg:w-auto bg-white rounded-xl2 border border-line p-3 shadow-card">
+            <!-- Замініть на <img src="reviews/1.jpg" ...> -->
+            <div class="aspect-[3/4] rounded-lg bg-blush/60 border border-line grid place-items-center text-center px-4">
+              <span class="text-sm text-muted">Місце для скріна<br>реального відгуку</span>
+            </div>
+          </figure>
+          <figure class="snap-start shrink-0 w-[80%] sm:w-[46%] lg:w-auto bg-white rounded-xl2 border border-line p-3 shadow-card">
+            <div class="aspect-[3/4] rounded-lg bg-goldbg/50 border border-line grid place-items-center text-center px-4">
+              <span class="text-sm text-muted">Місце для скріна<br>реального відгуку</span>
+            </div>
+          </figure>
+          <figure class="snap-start shrink-0 w-[80%] sm:w-[46%] lg:w-auto bg-white rounded-xl2 border border-line p-3 shadow-card">
+            <div class="aspect-[3/4] rounded-lg bg-blush/60 border border-line grid place-items-center text-center px-4">
+              <span class="text-sm text-muted">Місце для скріна<br>реального відгуку</span>
+            </div>
+          </figure>
+          <figure class="snap-start shrink-0 w-[80%] sm:w-[46%] lg:w-auto bg-white rounded-xl2 border border-line p-3 shadow-card">
+            <div class="aspect-[3/4] rounded-lg bg-goldbg/50 border border-line grid place-items-center text-center px-4">
+              <span class="text-sm text-muted">Місце для скріна<br>реального відгуку</span>
+            </div>
+          </figure>
+        </div>
+        <p class="mt-3 text-xs text-muted lg:hidden">← гортай, щоб побачити більше відгуків</p>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 10. COST OF CHAOS (ТЗ п.10 — + доданий текст)                 -->
+    <!-- ============================================================= -->
+    <section class="py-14 sm:py-20">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 grid lg:grid-cols-2 gap-8 items-center">
+        <div class="reveal">
+          <h2 class="font-head font-extrabold text-2xl sm:text-3xl">
+            Скільки коштує <span class="text-rose">хаос?</span>
+          </h2>
+          <p class="mt-3 text-graphite max-w-md">
+            Хаос коштує дорожче за будь-яке навчання. Поки ти шукаєш відповіді по шматках — час, гроші та впевненість витікають.
+          </p>
+          <div class="mt-5 bg-goldbg/60 border border-goldsoft rounded-xl2 p-5">
+            <p class="text-[15px] text-ink leading-relaxed">
+              За 4 роки роботи я витратила сотні годин, щоб знайти всі ці рішення, протестувати їх і залишити лише те, що справді працює.
+              <span class="font-semibold">Тобі більше не потрібно проходити цей шлях самостійно.</span>
+            </p>
+          </div>
+        </div>
+        <div class="reveal relative bg-blush note-paper rounded-xl2 border border-line shadow-soft p-7 rotate-[1deg]">
+          <span class="absolute -top-3 left-6 w-4 h-4 rounded-full bg-gold shadow"></span>
+          <p class="font-hand text-2xl text-rosedeep mb-3">що ти втрачаєш щодня:</p>
+          <ul class="space-y-2 text-graphite font-medium">
+            <li class="flex items-center gap-2 line-through decoration-rose/70"><svg class="w-4 h-4 text-rose"><use href="#ic-x"/></svg> втрачених клієнтів</li>
+            <li class="flex items-center gap-2 line-through decoration-rose/70"><svg class="w-4 h-4 text-rose"><use href="#ic-x"/></svg> невпевненості у діях</li>
+            <li class="flex items-center gap-2 line-through decoration-rose/70"><svg class="w-4 h-4 text-rose"><use href="#ic-x"/></svg> прокрастинації</li>
+            <li class="flex items-center gap-2 line-through decoration-rose/70"><svg class="w-4 h-4 text-rose"><use href="#ic-x"/></svg> місяців без результату</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 11. PRICING & MAIN CTA (ТЗ п.11 — ціни, доступ, без таймера)  -->
+    <!-- ============================================================= -->
+    <section id="pricing" class="py-14 sm:py-20 bg-gradient-to-b from-goldbg/40 to-blush/60 border-t border-line">
+      <div class="mx-auto max-w-3xl px-4 sm:px-6">
+        <div class="text-center reveal">
+          <span class="inline-block rounded-full bg-goldbg text-golddeep text-[11px] font-bold tracking-[0.18em] uppercase px-3 py-1 mb-4 border border-goldsoft">Доступ до ЧИТ-КОДУ</span>
+          <h2 class="font-head font-extrabold text-2xl sm:text-3xl">Забирай свою робочу базу</h2>
+          <p class="mt-3 text-graphite">Усе всередині — одразу після оплати. Доступ залишається назавжди.</p>
+        </div>
+
+        <div class="mt-8 reveal bg-white rounded-xl2 border border-line shadow-soft overflow-hidden">
+          <div class="p-6 sm:p-8">
+            <ul class="space-y-3">
+              <li class="flex items-center gap-3"><span class="grid place-items-center w-6 h-6 rounded-full bg-goldbg text-golddeep"><svg class="w-4 h-4"><use href="#ic-key"/></svg></span><span class="text-[15px] font-medium text-graphite">Фундамент — роадмапи, карта професії, ТОП помилок</span></li>
+              <li class="flex items-center gap-3"><span class="grid place-items-center w-6 h-6 rounded-full bg-blush text-rose"><svg class="w-4 h-4"><use href="#ic-folder"/></svg></span><span class="text-[15px] font-medium text-graphite">Моя робоча база — файли, шаблони, контент-плани</span></li>
+              <li class="flex items-center gap-3"><span class="grid place-items-center w-6 h-6 rounded-full bg-goldbg text-golddeep"><svg class="w-4 h-4"><use href="#ic-bolt"/></svg></span><span class="text-[15px] font-medium text-graphite">Швидкі рішення — відповіді, промпти, напрацювання</span></li>
+              <li class="flex items-center gap-3"><span class="grid place-items-center w-6 h-6 rounded-full bg-blush text-rose"><svg class="w-4 h-4"><use href="#ic-gift"/></svg></span><span class="text-[15px] font-medium text-graphite">Бонусні матеріали для зростання</span></li>
+            </ul>
+
+            <!-- price -->
+            <div class="mt-7 rounded-xl2 bg-goldbg/50 border border-goldsoft p-5">
+              <div class="flex items-center gap-3">
+                <span class="text-lg text-muted line-through" data-price-old>2 990 грн</span>
+                <span class="text-[11px] font-bold uppercase tracking-wide text-white bg-rose rounded-full px-2.5 py-1">Сьогодні найвигідніше</span>
+              </div>
+              <div class="mt-1 flex items-end gap-2">
+                <span class="text-sm font-semibold text-graphite mb-2">Сьогодні:</span>
+                <span class="font-head font-black text-5xl sm:text-6xl text-golddeep" data-price>790 грн</span>
+              </div>
+              <p class="mt-3 text-sm text-graphite flex items-start gap-2">
+                <svg class="w-4 h-4 mt-0.5 shrink-0 text-golddeep"><use href="#ic-spark"/></svg>
+                <span>Ціна зростатиме: <b>790&nbsp;грн → 990&nbsp;грн</b> через 4 дні, потім <b>990&nbsp;грн → 1290&nbsp;грн</b> ще через 4 дні. Найвигідніше — зараз.</span>
+              </p>
+            </div>
+
+            <!-- MAIN payment button -->
+            <button type="button" id="buyBtn" data-cta
+              class="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-full bg-rose px-7 py-4 text-white text-lg font-bold shadow-cta hover:bg-rosedeep active:scale-[.99] transition-all focus:outline-none focus:ring-4 focus:ring-rose/30">
+              <svg class="w-5 h-5"><use href="#ic-lock"/></svg>
+              Відкрити доступ за 790 грн
+            </button>
+
+            <div class="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-xs text-muted">
+              <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-golddeep"><use href="#ic-lock"/></svg> Безпечна оплата WayForPay</span>
+              <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-golddeep"><use href="#ic-infinity"/></svg> Доступ назавжди</span>
+            </div>
+
+            <!-- access info (ТЗ п.11) -->
+            <div class="mt-6 rounded-xl bg-sand/60 border border-line p-4">
+              <p class="text-sm text-graphite leading-relaxed flex items-start gap-2">
+                <svg class="w-5 h-5 mt-0.5 shrink-0 text-rose"><use href="#ic-check"/></svg>
+                <span>Після оплати через WayForPay ти автоматично потрапляєш у Telegram-бот. Протягом <b>3 днів</b> тобі поступово відкриваються всі матеріали. Доступ до всіх матеріалів залишається <b>назавжди</b>.</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-blush/70 border-t border-line px-6 py-3 text-center">
+            <p class="font-hand text-xl text-rosedeep">твій шлях у SMM починається тут ♥</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- FINAL CTA                                                     -->
+    <!-- ============================================================= -->
+    <section class="py-16 sm:py-24 relative overflow-hidden">
+      <div class="pointer-events-none absolute inset-0 -z-10"
+           style="background: radial-gradient(50% 60% at 50% 0%, #FBE7EE 0%, rgba(251,231,238,0) 60%);"></div>
+      <div class="mx-auto max-w-3xl px-4 sm:px-6 text-center reveal">
+        <svg class="mx-auto w-10 h-10 text-gold mb-4" aria-hidden="true"><use href="#ic-star"/></svg>
+        <h2 class="font-head font-black text-3xl sm:text-4xl leading-tight">
+          Готова відкрити свій<br><span class="text-rose">ЧИТ-КОД?</span>
+        </h2>
+        <p class="mt-4 text-graphite max-w-md mx-auto">
+          Забирай свою робочу базу і починай діяти впевнено вже зараз.
+        </p>
+        <a href="#pricing" data-cta
+          class="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-rose px-8 py-4 text-white text-lg font-bold shadow-cta hover:bg-rosedeep active:scale-[.98] transition-all">
+          <svg class="w-5 h-5"><use href="#ic-lock"/></svg>
+          Відкрити доступ
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================= -->
+  <!-- FOOTER                                                        -->
+  <!-- ============================================================= -->
+  <footer class="border-t border-line bg-sand/70">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+      <ul class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13px] font-semibold text-graphite">
+        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-gold"><use href="#ic-star"/></svg> без води</li>
+        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-gold"><use href="#ic-star"/></svg> тільки те, що працює</li>
+        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-gold"><use href="#ic-star"/></svg> створено практиком</li>
+        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-gold"><use href="#ic-star"/></svg> для твого реального росту</li>
+      </ul>
+      <p class="mt-6 text-center text-xs text-muted">
+        © <span id="year"></span> ЧИТ-КОД для SMM. Усі права захищені.
+        <a href="#" class="underline hover:text-rose">Договір оферти</a> ·
+        <a href="#" class="underline hover:text-rose">Політика конфіденційності</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- ============================================================= -->
+  <!-- STICKY MOBILE CTA BAR                                          -->
+  <!-- ============================================================= -->
+  <div id="stickyCta"
+       class="fixed inset-x-0 bottom-0 z-40 px-4 pt-3 pb-safe bg-cream/95 backdrop-blur-md border-t border-line translate-y-full transition-transform duration-300 sm:hidden">
+    <a href="#pricing" data-cta
+      class="w-full inline-flex items-center justify-center gap-2 rounded-full bg-rose px-6 py-3.5 text-white text-base font-bold shadow-cta active:scale-[.99]">
+      <svg class="w-5 h-5"><use href="#ic-lock"/></svg> Відкрити доступ · <span data-price-mini>790 грн</span>
+    </a>
+  </div>
+
+  <!-- ============================================================= -->
+  <!-- PAYMENT STATUS MODAL                                           -->
+  <!-- ============================================================= -->
+  <div id="statusModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="absolute inset-0 bg-ink/40 backdrop-blur-sm" data-close></div>
+    <div role="dialog" aria-modal="true" aria-labelledby="modalTitle"
+         class="relative w-full max-w-sm bg-white rounded-xl2 border border-line shadow-soft p-7 text-center">
+      <div id="modalIcon" class="mx-auto w-14 h-14 grid place-items-center rounded-full bg-rose/10 text-rose mb-4">
+        <svg class="w-7 h-7"><use href="#ic-check"/></svg>
+      </div>
+      <h3 id="modalTitle" class="font-head font-bold text-xl">Дякуємо за оплату!</h3>
+      <p id="modalText" class="mt-2 text-sm text-graphite">Зараз перенаправимо тебе в Telegram-бот із доступом…</p>
+      <div id="modalActions" class="mt-6 flex flex-col gap-2"></div>
+      <button data-close class="absolute top-3 right-3 text-muted hover:text-ink" aria-label="Закрити">
+        <svg class="w-5 h-5"><use href="#ic-x"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================= -->
+  <!-- SCRIPTS                                                       -->
+  <!-- ============================================================= -->
+  <script>
+  /* =================================================================
+     CONFIG — edit these values, no other code changes needed.
+     ================================================================= */
+  const CONFIG = {
+    // ── Режим оплати ─────────────────────────────────────────────
+    // 'wfp'    — БЕЗ сервера: оплата НА САЙТІ (сторінка WayForPay). Перед оплатою
+    //            генерується унікальний order_reference і зберігається в браузері;
+    //            після оплати користувача повертає на лендінг, і ми редіректимо в
+    //            бота: tg.pulse.is/...&order_reference=<номер>. (Повторне відкриття
+    //            не блокується — це свідомо прийнято.)
+    // 'bot'    — БЕЗ сервера: кнопка веде у бота, оплата всередині бота.
+    // 'server' — з платіжним сервером (папка /server): одноразовий токен.
+    payMode: 'bot',
+
+    // [режим 'wfp'] Посилання на сторінку/кнопку оплати WayForPay (з кабінету:
+    //   Кнопка оплати / рахунок на 790 грн). returnUrl цієї кнопки постав на
+    //   свій лендінг: https://ТВІЙ-ДОМЕН/?status=approved
+    wfpPaymentUrl: 'https://secure.wayforpay.com/button/REPLACE_WAYFORPAY_BUTTON',
+
+    // [режим 'wfp'] Базове посилання запуску ланцюжка через проміжний домен
+    //   SendPulse tg.pulse.is (щоб передати змінну у флоу). До нього додається
+    //   &<orderRefVar>=<номер>.
+    botTriggerUrl: 'https://tg.pulse.is/smmcheatcode_bot?start=6a4432fdbd262802b6079368',
+    // Назва змінної у SendPulse Audience, куди прийде номер (створи її в Audience).
+    orderRefVar: 'order_reference',
+
+    // [режим 'bot'] Посилання SendPulse «Link to launch a flow».
+    botFlowUrl: 'https://t.me/smmcheatcode_bot?start=6a4432fdbd262802b6079368',
+
+    // [режим 'server'] URL платіжного сервера (ендпойнт /pay).
+    paymentUrl: 'https://pay.your-domain.com/pay',
+    telegramBotUrl: 'https://t.me/smmcheatcode_bot?start=6a4432fdbd262802b6079368',
+    passOrderRef: false,
+
+    // Open the payment page / bot in a new tab (true) or same tab (false).
+    openPaymentInNewTab: false,
+    // Валюта та ціна для подій Facebook Pixel (Purchase / InitiateCheckout).
+    currency: 'UAH',
+    priceValue: 790,
+  };
+
+  /* ---------------- Унікальний order_reference (без сервера) ---------------- */
+  function genOrderRef() {
+    return 'CHITKOD-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
+  }
+  // Будує посилання на бота з унікальним номером у хвості.
+  function botUrlWithRef(ref) {
+    const base = CONFIG.botTriggerUrl;
+    const sep = base.includes('?') ? '&' : '?';
+    return base + sep + encodeURIComponent(CONFIG.orderRefVar) + '=' + encodeURIComponent(ref);
+  }
+
+  /* ---------------- Telegram (SendPulse) deep-link ----------------
+     Будує посилання на бота. Якщо CONFIG.passOrderRef=true і в поверненні
+     WayForPay є orderReference — підставляє його як start-параметр
+     (Telegram дозволяє лише A-Z a-z 0-9 _ - , до 64 символів).
+  ------------------------------------------------------------------ */
+  function buildTelegramUrl(orderRef) {
+    let url = CONFIG.telegramBotUrl;
+    if (CONFIG.passOrderRef && orderRef) {
+      const p = String(orderRef).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 64);
+      if (p) url = url.split('?')[0] + '?start=' + p;
+    }
+    return url;
+  }
+
+  /* ---------------- Facebook Pixel helpers ---------------- */
+  function fbReady(){ return typeof fbq === 'function' && window.FB_PIXEL_ID && !/REPLACE_WITH/.test(window.FB_PIXEL_ID); }
+  function trackFB(event, params){ if (fbReady()) { try { fbq('track', event, params || {}); } catch(e){} } }
+  // Поточна ціна зі сторінки (синхронно з тим, що бачить користувач), fallback — CONFIG.priceValue.
+  function currentPrice(){
+    const el = document.querySelector('[data-price]');
+    const n = el ? parseInt(el.textContent.replace(/[^0-9]/g, ''), 10) : NaN;
+    return (n && !isNaN(n)) ? n : CONFIG.priceValue;
+  }
+  // Подія перегляду продукту (для аудиторій та оптимізації).
+  trackFB('ViewContent', { content_name: 'ЧИТ-КОД для SMM', content_type: 'product', value: currentPrice(), currency: CONFIG.currency });
+
+  /* ---------------- Footer year ---------------- */
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ---------------- Scroll reveal ---------------- */
+  (function () {
+    const els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('is-visible')); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    els.forEach(e => io.observe(e));
+  })();
+
+  /* ---------------- Sticky mobile CTA (show after scroll, hide over pricing) ---------------- */
+  (function () {
+    const bar = document.getElementById('stickyCta');
+    const onScroll = () => {
+      const showAfter = 600;
+      const r = document.getElementById('pricing').getBoundingClientRect();
+      const nearPricing = (r.top < window.innerHeight && r.bottom > 0);
+      if (window.scrollY > showAfter && !nearPricing) bar.classList.remove('translate-y-full');
+      else bar.classList.add('translate-y-full');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  /* ---------------- Payment modal helpers ---------------- */
+  const modal = document.getElementById('statusModal');
+  function openModal(){ modal.classList.remove('hidden'); modal.classList.add('flex'); document.body.style.overflow='hidden'; }
+  function closeModal(){ modal.classList.add('hidden'); modal.classList.remove('flex'); document.body.style.overflow=''; }
+  modal.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', closeModal));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  function showSuccess(redirectUrl) {
+    const tgUrl = redirectUrl || buildTelegramUrl();
+    // Подія успішної покупки — головна конверсія для Facebook-реклами.
+    trackFB('Purchase', { content_name: 'ЧИТ-КОД для SMM', value: currentPrice(), currency: CONFIG.currency });
+    document.getElementById('modalIcon').className = 'mx-auto w-14 h-14 grid place-items-center rounded-full bg-rose/10 text-rose mb-4';
+    document.getElementById('modalIcon').innerHTML = '<svg class="w-7 h-7"><use href="#ic-check"/></svg>';
+    document.getElementById('modalTitle').textContent = 'Дякуємо за оплату! ♥';
+    document.getElementById('modalText').textContent = 'Зараз перенаправимо тебе в Telegram-бот. Матеріали відкриватимуться протягом 3 днів.';
+    const actions = document.getElementById('modalActions');
+    actions.innerHTML = '<a href="'+tgUrl+'" class="w-full inline-flex items-center justify-center gap-2 rounded-full bg-rose px-6 py-3 text-white font-bold shadow-cta hover:bg-rosedeep transition">Перейти в Telegram-бот</a>';
+    openModal();
+    setTimeout(() => { window.location.href = tgUrl; }, 2500);
+  }
+
+  function showError() {
+    document.getElementById('modalIcon').className = 'mx-auto w-14 h-14 grid place-items-center rounded-full bg-rose/10 text-rosedeep mb-4';
+    document.getElementById('modalIcon').innerHTML = '<svg class="w-7 h-7"><use href="#ic-x"/></svg>';
+    document.getElementById('modalTitle').textContent = 'Оплата не пройшла';
+    document.getElementById('modalText').textContent = 'Нічого страшного — спробуй ще раз або обери інший спосіб оплати. Гроші не списано.';
+    const actions = document.getElementById('modalActions');
+    actions.innerHTML =
+      '<button id="retryBtn" class="w-full inline-flex items-center justify-center gap-2 rounded-full bg-rose px-6 py-3 text-white font-bold shadow-cta hover:bg-rosedeep transition">Спробувати ще раз</button>' +
+      '<button data-close class="w-full rounded-full border border-line px-6 py-3 text-graphite font-semibold hover:bg-sand transition">Закрити</button>';
+    openModal();
+    actions.querySelector('#retryBtn').addEventListener('click', () => { closeModal(); startPayment(); });
+    actions.querySelector('[data-close]').addEventListener('click', closeModal);
+  }
+
+  /* ---------------- Start payment ---------------- */
+  function startPayment() {
+    // Подія «почав оформлення оплати» — ключова для оптимізації реклами.
+    trackFB('InitiateCheckout', { content_name: 'ЧИТ-КОД для SMM', value: currentPrice(), currency: CONFIG.currency });
+
+    // Обираємо URL за режимом.
+    let url;
+    if (CONFIG.payMode === 'wfp') {
+      // Генеруємо унікальний номер і зберігаємо в браузері до повернення з оплати.
+      const ref = genOrderRef();
+      try { localStorage.setItem('chitkod_ref', ref); } catch (e) {}
+      url = CONFIG.wfpPaymentUrl;
+    } else if (CONFIG.payMode === 'server') {
+      url = CONFIG.paymentUrl;
+    } else {
+      url = CONFIG.botFlowUrl;
+    }
+
+    // Захист від запуску з незаповненим плейсхолдером.
+    if (!url || url.includes('REPLACE_') || url.includes('your-domain.com')) {
+      document.getElementById('modalIcon').className = 'mx-auto w-14 h-14 grid place-items-center rounded-full bg-goldbg text-golddeep mb-4';
+      document.getElementById('modalIcon').innerHTML = '<svg class="w-7 h-7"><use href="#ic-lock"/></svg>';
+      document.getElementById('modalTitle').textContent = 'Майже готово';
+      document.getElementById('modalText').textContent =
+        (CONFIG.payMode === 'wfp')    ? 'Встав посилання на сторінку оплати WayForPay у CONFIG.wfpPaymentUrl, щоб активувати кнопку.' :
+        (CONFIG.payMode === 'server') ? 'Вкажи URL платіжного сервера у CONFIG.paymentUrl (/pay).' :
+                                        'Встав посилання на флоу бота у CONFIG.botFlowUrl.';
+      document.getElementById('modalActions').innerHTML =
+        '<button data-close class="w-full rounded-full border border-line px-6 py-3 text-graphite font-semibold hover:bg-sand transition">Зрозуміло</button>';
+      openModal();
+      document.querySelector('#modalActions [data-close]').addEventListener('click', closeModal);
+      return;
+    }
+    if (CONFIG.openPaymentInNewTab) window.open(url, '_blank', 'noopener');
+    else window.location.href = url;
+  }
+
+  document.getElementById('buyBtn').addEventListener('click', startPayment);
+
+  /* ---------------- Handle WayForPay return URL ----------------
+     WayForPay повертає покупця на returnUrl. Налаштуй returnUrl так, щоб
+     він містив статус, напр.:  https://твій-домен/?status=approved
+     За потреби WayForPay також передає orderReference — ми зчитуємо його,
+     щоб (за увімкненого CONFIG.passOrderRef) підставити у посилання бота.
+  ------------------------------------------------------------------ */
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    const status = (params.get('status') || params.get('transactionStatus') || '').toLowerCase();
+    if (!status) return;
+    const tg = params.get('tg'); // сервер (режим 'server') передає готове посилання
+    const orderRef = params.get('orderReference') || params.get('order') || params.get('orderNo') || '';
+    if (['approved', 'success', 'paid'].includes(status)) {
+      let redirect;
+      if (CONFIG.payMode === 'wfp') {
+        // Беремо унікальний номер, збережений перед оплатою (або з URL, або новий).
+        let ref = '';
+        try { ref = localStorage.getItem('chitkod_ref') || ''; } catch (e) {}
+        if (!ref) ref = orderRef || genOrderRef();
+        try { localStorage.removeItem('chitkod_ref'); } catch (e) {}
+        redirect = botUrlWithRef(ref);
+      } else if (tg) {
+        redirect = decodeURIComponent(tg);
+      } else {
+        redirect = buildTelegramUrl(orderRef);
+      }
+      showSuccess(redirect);
+    } else if (['declined', 'failed', 'error', 'expired', 'refunded'].includes(status)) {
+      showError();
+    }
+    if (window.history.replaceState) window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
+  })();
+  </script>
+</body>
+</html>
