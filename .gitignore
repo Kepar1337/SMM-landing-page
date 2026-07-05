@@ -8,6 +8,12 @@
 *.jpeg
 *.jpg
 
+# Виняток: зображення-асети лендінгу у src/ треба версіонувати
+!src/*.jpg
+!src/*.jpeg
+!src/*.JPEG
+!src/*.png
+
 # Python
 __pycache__/
 *.pyc
