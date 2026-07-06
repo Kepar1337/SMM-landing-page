@@ -860,7 +860,7 @@
     passOrderRef: false,
 
     // Open the payment page / bot in a new tab (true) or same tab (false).
-    openPaymentInNewTab: false,
+    openPaymentInNewTab: true,
     // Валюта та ціна для подій Facebook Pixel (Purchase / InitiateCheckout).
     currency: 'USD',
     priceValue: 11,
@@ -967,8 +967,19 @@
 
   /* ---------------- Оплата через бекенд (Supabase create-order) ----------------
      Функція повертає JSON {action, fields}; збираємо з нього форму і POST-имо
-     на сторінку оплати WayForPay. Масиви стають полями name[]. */
+     на сторінку оплати WayForPay. Масиви стають полями name[].
+     Якщо CONFIG.openPaymentInNewTab=true — оплата відкривається в новій
+     вкладці, а лендінг полить order-status і показує «дякуємо за покупку». */
   async function startServerPayment() {
+    // Вікно відкриваємо синхронно з кліку — інакше popup-блокер зʼїсть його
+    // після await. Якщо заблокували — падаємо назад на поточну вкладку.
+    let payWindow = null;
+    if (CONFIG.openPaymentInNewTab) {
+      payWindow = window.open('', 'wfp_pay');
+      if (payWindow) {
+        try { payWindow.document.write('<p style="font-family:sans-serif;text-align:center;padding-top:60px">Відкриваємо сторінку оплати…</p>'); } catch (e) {}
+      }
+    }
     try {
       const r = await fetch(CONFIG.paymentUrl, { method: 'GET' });
       const d = await r.json();
@@ -978,6 +989,7 @@
       form.action = d.action;
       form.acceptCharset = 'utf-8';
       form.style.display = 'none';
+      if (payWindow) form.target = 'wfp_pay';
       for (const [name, value] of Object.entries(d.fields)) {
         const items = Array.isArray(value) ? value.map(v => [name + '[]', v]) : [[name, value]];
         for (const [n, v] of items) {
@@ -988,9 +1000,47 @@
       }
       document.body.appendChild(form);
       form.submit();
+      if (payWindow) pollOrderStatus(d.fields.orderReference);
     } catch (e) {
+      if (payWindow) { try { payWindow.close(); } catch (e2) {} }
       showPaymentError();
     }
+  }
+
+  /* Полінг статусу замовлення: коли оплата підтверджена (paid/claimed) —
+     показуємо повідомлення про успішну покупку на лендінгу. */
+  let orderPollTimer = null;
+  function pollOrderStatus(token) {
+    if (orderPollTimer) clearTimeout(orderPollTimer);
+    const statusUrl = CONFIG.paymentUrl.replace(/create-order$/, 'order-status');
+    const startedAt = Date.now();
+    const MAX_POLL_MS = 30 * 60 * 1000; // пів години — далі перестаємо питати
+    async function tick() {
+      try {
+        const r = await fetch(statusUrl + '?token=' + encodeURIComponent(token), { cache: 'no-store' });
+        const d = await r.json();
+        if (d && (d.status === 'paid' || d.status === 'claimed')) {
+          showServerPaymentSuccess(d.botLink);
+          return;
+        }
+      } catch (e) { /* мережевий збій — просто спробуємо ще раз */ }
+      if (Date.now() - startedAt < MAX_POLL_MS) orderPollTimer = setTimeout(tick, 3000);
+    }
+    orderPollTimer = setTimeout(tick, 3000);
+  }
+
+  function showServerPaymentSuccess(botLink) {
+    // Головна конверсія для реклами.
+    trackFB('Purchase', { content_name: 'SMM Cheat-code', value: currentPrice(), currency: CONFIG.currency });
+    document.getElementById('modalIcon').className = 'mx-auto w-14 h-14 grid place-items-center rounded-full bg-rose/10 text-rose mb-4';
+    document.getElementById('modalIcon').innerHTML = '<svg class="w-7 h-7"><use href="#ic-check"/></svg>';
+    document.getElementById('modalTitle').textContent = 'Оплата успішна! ♥';
+    document.getElementById('modalText').textContent = 'Дякуємо за покупку! Доступ до курсу видає Telegram-бот — перевір вкладку, що відкрилась. Якщо її немає — тисни кнопку нижче.';
+    document.getElementById('modalActions').innerHTML =
+      '<a href="' + (botLink || CONFIG.telegramBotUrl) + '" target="_blank" rel="noopener" class="w-full inline-flex items-center justify-center gap-2 rounded-full bg-rose px-6 py-3 text-white font-bold shadow-cta hover:bg-rosedeep transition">Відкрити Telegram-бот</a>' +
+      '<button data-close class="w-full rounded-full border border-line px-6 py-3 text-graphite font-semibold hover:bg-sand transition">Закрити</button>';
+    openModal();
+    document.querySelector('#modalActions [data-close]').addEventListener('click', closeModal);
   }
   function showPaymentError() {
     document.getElementById('modalIcon').className = 'mx-auto w-14 h-14 grid place-items-center rounded-full bg-goldbg text-golddeep mb-4';

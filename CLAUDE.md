@@ -14,9 +14,12 @@
 
 ## Ключові факти (перевірені на живих оплатах)
 
-- Потік: лендінг → `create-order` (JSON, форму сабмітить лендінг) → WayForPay →
-  `wayforpay-callback` (`Approved` → `paid`) + `payment-return` (303 у tg.pulse.is)
-  → SendPulse claim-флоу → `claim` (`paid → claimed`, атомарно, одноразово).
+- Потік: лендінг → `create-order` (JSON, форму сабмітить лендінг у **нову
+  вкладку**) → WayForPay → `wayforpay-callback` (`Approved` → `paid`) +
+  `payment-return` (303 у tg.pulse.is) → SendPulse claim-флоу → `claim`
+  (`paid → claimed`, атомарно, одноразово). Паралельно лендінг полить
+  read-only `order-status` і при `paid`/`claimed` показує «дякуємо за покупку»
+  (+ подія Purchase у FB Pixel).
 - `claim` повертає JSON-булеві; SendPulse мапить `$['ok']` у `1`/`0`, тому
   фільтри у флоу порівнюють з `1`, не з `true`.
 - Голий `/start` у боті = welcome-флоу **без** курсу; видача — лише через
