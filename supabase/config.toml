@@ -1,0 +1,17 @@
+# Конфіг Supabase CLI для бекенду воронки оплати (окремий проєкт, не SubTrack).
+project_id = "chitkod-funnel"
+
+# Усі три функції викликаються ззовні (лендінг, WayForPay, SendPulse) без
+# Supabase JWT — верифікацію JWT вимикаємо. Безпека забезпечується підписом
+# WayForPay (callback) та одноразовістю токена (claim).
+[functions.create-order]
+verify_jwt = false
+
+[functions.wayforpay-callback]
+verify_jwt = false
+
+[functions.claim]
+verify_jwt = false
+
+[functions.payment-return]
+verify_jwt = false

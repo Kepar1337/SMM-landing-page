@@ -1,0 +1,5 @@
+# Локальні секрети функцій — не комітити
+functions/.env
+# Службові артефакти Supabase CLI
+.temp/
+.branches/

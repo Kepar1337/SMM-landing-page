@@ -837,7 +837,7 @@
     //            не блокується — це свідомо прийнято.)
     // 'bot'    — БЕЗ сервера: кнопка веде у бота, оплата всередині бота.
     // 'server' — з платіжним сервером (папка /server): одноразовий токен.
-    payMode: 'wfp',
+    payMode: 'server',
 
     // [режим 'wfp'] Посилання на сторінку/кнопку оплати WayForPay (з кабінету:
     //   Кнопка оплати / рахунок на 790 грн). returnUrl цієї кнопки постав на
@@ -854,8 +854,8 @@
     // [режим 'bot'] Посилання SendPulse «Link to launch a flow».
     botFlowUrl: 'https://t.me/smmcheatcode_bot?start=6a4432fdbd262802b6079368',
 
-    // [режим 'server'] URL платіжного сервера (ендпойнт /pay).
-    paymentUrl: 'https://pay.your-domain.com/pay',
+    // [режим 'server'] URL бекенду оплати (Supabase Edge Function create-order).
+    paymentUrl: 'https://bovhwyysljxifixiekxn.supabase.co/functions/v1/create-order',
     telegramBotUrl: 'https://t.me/smmcheatcode_bot?start=6a4432fdbd262802b6079368',
     passOrderRef: false,
 
@@ -965,6 +965,46 @@
     actions.querySelector('[data-close]').addEventListener('click', closeModal);
   }
 
+  /* ---------------- Оплата через бекенд (Supabase create-order) ----------------
+     Функція повертає JSON {action, fields}; збираємо з нього форму і POST-имо
+     на сторінку оплати WayForPay. Масиви стають полями name[]. */
+  async function startServerPayment() {
+    try {
+      const r = await fetch(CONFIG.paymentUrl, { method: 'GET' });
+      const d = await r.json();
+      if (!r.ok || !d.ok || !d.action || !d.fields) throw new Error('bad response');
+      const form = document.createElement('form');
+      form.method = 'post';
+      form.action = d.action;
+      form.acceptCharset = 'utf-8';
+      form.style.display = 'none';
+      for (const [name, value] of Object.entries(d.fields)) {
+        const items = Array.isArray(value) ? value.map(v => [name + '[]', v]) : [[name, value]];
+        for (const [n, v] of items) {
+          const input = document.createElement('input');
+          input.type = 'hidden'; input.name = n; input.value = String(v);
+          form.appendChild(input);
+        }
+      }
+      document.body.appendChild(form);
+      form.submit();
+    } catch (e) {
+      showPaymentError();
+    }
+  }
+  function showPaymentError() {
+    document.getElementById('modalIcon').className = 'mx-auto w-14 h-14 grid place-items-center rounded-full bg-goldbg text-golddeep mb-4';
+    document.getElementById('modalIcon').innerHTML = '<svg class="w-7 h-7"><use href="#ic-lock"/></svg>';
+    document.getElementById('modalTitle').textContent = 'Не вдалося створити замовлення';
+    document.getElementById('modalText').textContent = 'Спробуй ще раз за хвилину. Якщо не допоможе — напиши нам.';
+    document.getElementById('modalActions').innerHTML =
+      '<button id="retryBtn" class="w-full inline-flex items-center justify-center gap-2 rounded-full bg-rose px-6 py-3 text-white font-bold shadow-cta hover:bg-rosedeep transition">Спробувати ще раз</button>' +
+      '<button data-close class="w-full rounded-full border border-line px-6 py-3 text-graphite font-semibold hover:bg-sand transition">Закрити</button>';
+    openModal();
+    document.querySelector('#modalActions #retryBtn').addEventListener('click', () => { closeModal(); startPayment(); });
+    document.querySelector('#modalActions [data-close]').addEventListener('click', closeModal);
+  }
+
   /* ---------------- Start payment ---------------- */
   function startPayment() {
     // Подія «почав оформлення оплати» — ключова для оптимізації реклами.
@@ -978,7 +1018,9 @@
       try { localStorage.setItem('chitkod_ref', ref); } catch (e) {}
       url = CONFIG.wfpPaymentUrl;
     } else if (CONFIG.payMode === 'server') {
-      url = CONFIG.paymentUrl;
+      // Бекенд віддає JSON, форму збираємо і сабмітимо тут.
+      if (!CONFIG.paymentUrl || CONFIG.paymentUrl.includes('your-domain.com')) { url = ''; }
+      else { startServerPayment(); return; }
     } else {
       url = CONFIG.botFlowUrl;
     }
