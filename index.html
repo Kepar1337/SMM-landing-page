@@ -901,7 +901,7 @@
     return (n && !isNaN(n)) ? n : CONFIG.priceValue;
   }
   // Подія перегляду продукту (для аудиторій та оптимізації).
-  trackFB('ViewContent', { content_name: 'ЧИТ-КОД для SMM', content_type: 'product', value: currentPrice(), currency: CONFIG.currency });
+  trackFB('ViewContent', { content_name: 'SMM Cheat-code', content_type: 'product', value: currentPrice(), currency: CONFIG.currency });
 
   /* ---------------- Footer year ---------------- */
   document.getElementById('year').textContent = new Date().getFullYear();
@@ -940,7 +940,7 @@
   function showSuccess(redirectUrl) {
     const tgUrl = redirectUrl || buildTelegramUrl();
     // Подія успішної покупки — головна конверсія для Facebook-реклами.
-    trackFB('Purchase', { content_name: 'ЧИТ-КОД для SMM', value: currentPrice(), currency: CONFIG.currency });
+    trackFB('Purchase', { content_name: 'SMM Cheat-code', value: currentPrice(), currency: CONFIG.currency });
     document.getElementById('modalIcon').className = 'mx-auto w-14 h-14 grid place-items-center rounded-full bg-rose/10 text-rose mb-4';
     document.getElementById('modalIcon').innerHTML = '<svg class="w-7 h-7"><use href="#ic-check"/></svg>';
     document.getElementById('modalTitle').textContent = 'Дякуємо за оплату! ♥';
@@ -1058,7 +1058,9 @@
   /* ---------------- Start payment ---------------- */
   function startPayment() {
     // Подія «почав оформлення оплати» — ключова для оптимізації реклами.
-    trackFB('InitiateCheckout', { content_name: 'ЧИТ-КОД для SMM', value: currentPrice(), currency: CONFIG.currency });
+    trackFB('InitiateCheckout', { content_name: 'SMM Cheat-code', value: currentPrice(), currency: CONFIG.currency });
+    // Lead — подія, по якій оптимізується реклама (клік по кнопці оплати).
+    trackFB('Lead', { content_name: 'SMM Cheat-code', value: currentPrice(), currency: CONFIG.currency });
 
     // Обираємо URL за режимом.
     let url;
