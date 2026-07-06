@@ -1,27 +1,35 @@
 # SMM Cheat-code — лендінг + воронка оплати
 
-Продукт: міні-курс «SMM Cheat-code» (фінальна ціна 11 USD). Оплата WayForPay,
+Продукт: міні-курс «SMM Cheat-code», ціна 11 USD. Оплата WayForPay,
 видача в Telegram-боті через SendPulse, доступ по одноразовому токену.
+Воронка в проді, перевірена на живих оплатах (2026-07-05…07).
 
 ## Структура
 
 | Що | Де |
 |---|---|
-| Лендінг (статичний, деплой на Vercel: smm-landing-page.vercel.app) | `index.html` |
-| **Бекенд воронки** — Supabase Edge Functions + міграція (детальний README всередині) | `supabase/` |
-| Стара Node.js-версія платіжного сервера (не використовується, лишена як референс) | `server/` |
-| Рекламні креативи й гайди | `creatives/`, `*.md` у корені |
+| Лендінг (статичний, Vercel: smm-landing-page.vercel.app, деплой з `main`) | `index.html` |
+| **Бекенд воронки** — міграція + 5 Edge Functions (детальний README всередині) | `supabase/` |
+| Огляд репозиторію для людей | `README.md` |
+| Стара Node.js-версія платіжного сервера (не використовується, референс) | `server/` |
+| Рекламні креативи | `creatives/` |
 
 ## Ключові факти (перевірені на живих оплатах)
 
-- Потік: лендінг → `create-order` (JSON, форму сабмітить лендінг у **нову
-  вкладку**) → WayForPay → `wayforpay-callback` (`Approved` → `paid`) +
-  `payment-return` (303 у tg.pulse.is) → SendPulse claim-флоу → `claim`
-  (`paid → claimed`, атомарно, одноразово). Паралельно лендінг полить
-  read-only `order-status` і при `paid`/`claimed` показує «дякуємо за покупку»
-  (+ подія Purchase у FB Pixel).
+- Потік: кнопка «Купити» → **нова вкладка** (`window.open` синхронно з кліку,
+  fallback у поточну при блокуванні) → `create-order` (JSON `{action, fields}`,
+  форму сабмітить лендінг) → WayForPay → `wayforpay-callback` (`Approved` →
+  `paid`) + `payment-return` (303 у tg.pulse.is) → SendPulse claim-флоу →
+  `claim` (`paid → claimed`, атомарно, одноразово). Паралельно лендінг полить
+  read-only `order-status` (кожні 3 с, до 30 хв) і при `paid`/`claimed`
+  показує модалку «Оплата успішна!» з запасною кнопкою в бот.
+- Facebook Pixel: `Lead` — на клік кнопки оплати (по ній оптимізується
+  реклама), `InitiateCheckout` поруч, `Purchase` — при підтвердженій оплаті,
+  `ViewContent` — на завантаженні. **`FB_PIXEL_ID` поки заглушка — події не
+  відправляються, доки не вписано реальний ID** (рядок ~22 index.html).
 - `claim` повертає JSON-булеві; SendPulse мапить `$['ok']` у `1`/`0`, тому
-  фільтри у флоу порівнюють з `1`, не з `true`.
+  фільтри у флоу порівнюють з `1`, не з `true`. Тіло API Request:
+  `{"token":"{{claim_token}}","subscriber_id":"{{telegram_id}}"}`.
 - Голий `/start` у боті = welcome-флоу **без** курсу; видача — лише через
   launch-link з `claim_token` (налаштовано в SendPulse вручну, поза кодом).
 - Секрети WayForPay живуть тільки в Supabase Secrets, у код/git не потрапляють.
@@ -30,10 +38,14 @@
 
 ## Правила для змін
 
-- Логіку `create-order`/`wayforpay-callback`/`claim`/`payment-return` не міняти
-  без перевірки на живій оплаті — вона відпрацьована (див. «Вивчені уроки» в
-  `supabase/README.md`: заборона HTML на `*.supabase.co`, POST на returnUrl,
-  поведінка тестового режиму WayForPay).
+- **Ніколи не пушити без явного підтвердження власника** — `main`
+  автодеплоїться на Vercel, зміни одразу бачать живі покупці.
+- Логіку функцій воронки не міняти без перевірки на живій оплаті — вона
+  відпрацьована (див. «Вивчені уроки» в `supabase/README.md`: заборона HTML
+  на `*.supabase.co`, POST на returnUrl, поведінка тестового режиму WayForPay,
+  trim секретів).
 - SendPulse налаштовується вручну в їхньому кабінеті — у коді його немає.
 - Supabase-проєкт воронки: `bovhwyysljxifixiekxn`. Не плутати з іншими
   проєктами в акаунті.
+- У таблиці `course_tokens` уже реальні дані (тестовий трафік) — не чистити
+  без згоди власника.
